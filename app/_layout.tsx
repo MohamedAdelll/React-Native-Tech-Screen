@@ -19,6 +19,7 @@ export default function RootLayout() {
       <TodoProvider>
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="todo/[id]" options={{ headerShown: false }} />
           <Stack.Screen
             name="todo/create"
             options={{
@@ -26,7 +27,6 @@ export default function RootLayout() {
               title: "New To-Do",
             }}
           />
-          <Stack.Screen name="todo/[id]" options={{ headerShown: false }} />
         </Stack>
         <StatusBar style="auto" />
       </TodoProvider>

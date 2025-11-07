@@ -1,5 +1,6 @@
 {
-  "name": "assignment",
+  "name": "react-native-tech-screen",
+  "displayName": "React Native Tech Screen",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {

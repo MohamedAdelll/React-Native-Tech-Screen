@@ -81,9 +81,11 @@ export function useForm<Fields extends string>({
       });
       setErrors((prev) => ({
         ...prev,
-        [field]: runValidators(field, value, values),
+        // Only re-validate if there was an error
+        [field]: prev[field]
+          ? runValidators(field, value, values)
+          : prev[field],
       }));
-      console.log("setFieldValue", field, value, values);
     },
     [values, runValidators]
   );

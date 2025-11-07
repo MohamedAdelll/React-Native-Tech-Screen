@@ -53,7 +53,9 @@ export default function TodoDetail() {
     ]);
   };
 
+  // This should never happen.
   if (!todo) {
+    console.error("Todo not found for id:", id);
     return (
       <ThemedView style={styles.container}>
         <SafeAreaView style={styles.safeArea}>
@@ -79,7 +81,7 @@ export default function TodoDetail() {
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.headerRow}>
-          <Link href="/" style={styles.backLink}>
+          <Link href=".." style={styles.backLink}>
             <IconSymbol name="chevron.left" color={tint} />
           </Link>
           <ThemedText type="title">To‑Do</ThemedText>
@@ -89,6 +91,9 @@ export default function TodoDetail() {
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
         >
+          <ThemedText style={styles.metaText}>
+            Created: {formatDate(todo.createdAt)}
+          </ThemedText>
           <View style={styles.row}>
             <IconSymbol
               name={todo.checked ? "checkmark.circle.fill" : "circle"}
@@ -98,26 +103,20 @@ export default function TodoDetail() {
             <ThemedText type="subtitle" style={styles.status}>
               {todo.checked ? "Completed" : "Pending"}
             </ThemedText>
-          </View>
-          <ThemedText type="title" style={styles.title}>
-            {todo.title}
-          </ThemedText>
-          {todo.description ? (
-            <ThemedText type="default" style={styles.description}>
-              {todo.description}
-            </ThemedText>
-          ) : null}
-
-          <View style={styles.meta}>
-            <ThemedText style={styles.metaText}>
-              Created: {formatDate(todo.createdAt)}
-            </ThemedText>
             {todo.checkedAt && (
               <ThemedText style={styles.metaText}>
-                Completed: {formatDate(todo.checkedAt)}
+                {formatDate(todo.checkedAt)}
               </ThemedText>
             )}
           </View>
+          <View style={styles.meta}></View>
+          <ThemedText type="title" style={styles.title}>
+            {todo.title}
+          </ThemedText>
+
+          <ThemedText type="default" style={styles.description}>
+            {todo.description}
+          </ThemedText>
 
           <View style={styles.actions}>
             <ThemedButton
@@ -153,11 +152,19 @@ const styles = StyleSheet.create({
   },
   backLink: { padding: 8 },
   content: { paddingBottom: 40, gap: 12 },
-  row: { flexDirection: "row", alignItems: "center", gap: 8 },
+  row: {
+    flexDirection: "row",
+    gap: 8,
+  },
   status: { opacity: 0.8 },
   title: { marginTop: 4 },
   description: { lineHeight: 22 },
-  meta: { gap: 2, marginTop: 8 },
+  meta: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
   metaText: { fontSize: 12, opacity: 0.7 },
   actions: { gap: 8, marginTop: 16 },
   centerWrap: {
