@@ -20,12 +20,13 @@ export default function RootLayout() {
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen
-            name="modal"
+            name="todo/create"
             options={{
               presentation: "modal",
-              title: "Create New To-Do",
+              title: "New To-Do",
             }}
           />
+          <Stack.Screen name="todo/[id]" options={{ headerShown: false }} />
         </Stack>
         <StatusBar style="auto" />
       </TodoProvider>

@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { ThemedButton } from "@/components/themed-button";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import TodoPreview from "@/components/todo/preview";
@@ -16,7 +17,7 @@ import { useTodos } from "@/contexts/todo-context";
 import { useThemeColor } from "@/hooks/use-theme-color";
 
 export default function HomeScreen() {
-  const { todos } = useTodos();
+  const { sortedTodos: todos } = useTodos();
   const tint = useThemeColor({}, "tint");
 
   return (
@@ -24,16 +25,27 @@ export default function HomeScreen() {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.headerRow}>
           <ThemedText type="title">To‑Do List</ThemedText>
-          <Link href="/modal" style={styles.addLink}>
+          <Link href="/todo/create" style={styles.addLink}>
             <IconSymbol name="plus" color={tint} />
           </Link>
         </View>
-        <FlatList
-          data={todos}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={styles.list}
-          renderItem={({ item }) => <TodoPreview item={item} />}
-        />
+        {todos.length === 0 ? (
+          <View style={styles.emptyState}>
+            <ThemedText>You don&apos;t have any to-dos🎉</ThemedText>
+            <Link href="/todo/create" asChild>
+              <ThemedButton title="Add Todo" />
+            </Link>
+          </View>
+        ) : (
+          <FlatList
+            data={todos}
+            keyExtractor={(item) => item.id}
+            contentContainerStyle={styles.list}
+            renderItem={({ item }) => <TodoPreview item={item} />}
+            accessibilityLabel="Todo list"
+            showsVerticalScrollIndicator={false}
+          />
+        )}
       </SafeAreaView>
     </ThemedView>
   );
@@ -51,13 +63,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    marginBottom: 16,
   },
   list: {
-    marginTop: 16,
     gap: 12,
     paddingBottom: 40,
   },
   addLink: {
     padding: 8,
+  },
+  emptyState: {
+    flex: 1,
+    alignItems: "center",
+    gap: 8,
+    paddingTop: "20%",
+    // justifyContent: "center",
   },
 });

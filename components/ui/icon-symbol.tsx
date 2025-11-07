@@ -31,6 +31,9 @@ const MAPPING = {
   "chevron.left.forwardslash.chevron.right": "code",
   "chevron.right": "chevron-right",
   plus: "add",
+  "checkmark.circle.fill": "check-circle",
+  circle: "radio-button-unchecked",
+  "trash.fill": "delete",
 } as IconMapping;
 
 /**

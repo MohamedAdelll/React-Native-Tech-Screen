@@ -73,12 +73,20 @@ export function useForm<Fields extends string>({
     [errors, runValidators]
   );
 
-  const setFieldValue = useCallback((field: Fields, value: string) => {
-    setValues((prev) => {
-      const next = { ...prev, [field]: value };
-      return next;
-    });
-  }, []);
+  const setFieldValue = useCallback(
+    (field: Fields, value: string) => {
+      setValues((prev) => {
+        const next = { ...prev, [field]: value };
+        return next;
+      });
+      setErrors((prev) => ({
+        ...prev,
+        [field]: runValidators(field, value, values),
+      }));
+      console.log("setFieldValue", field, value, values);
+    },
+    [values, runValidators]
+  );
 
   const setFieldTouched = useCallback((field: Fields) => {
     setTouched((prev) => ({ ...prev, [field]: true }));

@@ -10,14 +10,19 @@ import { useThemeColor } from "@/hooks/use-theme-color";
 
 export function ThemedTextInput({ style, ...rest }: TextInputProps) {
   const backgroundColor = useThemeColor({}, "background");
-  const color = useThemeColor({}, "text");
+  const textColor = useThemeColor({}, "text");
+  const placeholderTextColor = useThemeColor({}, "placeholderText");
   const borderColor = useThemeColor({}, "tint");
 
   return (
     <TextInput
       {...rest}
-      placeholderTextColor={rest.placeholderTextColor ?? color}
-      style={[styles.input, { backgroundColor, color, borderColor }, style]}
+      placeholderTextColor={rest.placeholderTextColor ?? placeholderTextColor}
+      style={[
+        styles.input,
+        { backgroundColor, color: textColor, borderColor },
+        style,
+      ]}
     />
   );
 }

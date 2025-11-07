@@ -3,10 +3,10 @@ import React from "react";
 import { router } from "expo-router";
 import {
   StyleSheet,
-  TouchableOpacity,
   View,
 } from "react-native";
 
+import { ThemedButton } from "@/components/themed-button";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedTextInput } from "@/components/themed-text-input";
 import { ThemedView } from "@/components/themed-view";
@@ -18,11 +18,10 @@ import {
 import { useThemeColor } from "@/hooks/use-theme-color";
 
 export default function ModalScreen() {
-  const ERROR_RED = "#ff4d4f";
-  const tint = useThemeColor({}, "tint");
+  const errorColor = useThemeColor({}, "error");
 
   const { addTodo } = useTodos();
-  const { getTextInputProps, errors, touched, handleSubmit } = useForm({
+  const { getTextInputProps, errors, handleSubmit } = useForm({
     initialValues: { title: "", body: "" },
     config: {
       title: { validate: required("Title") },
@@ -34,6 +33,9 @@ export default function ModalScreen() {
     },
   });
 
+  const shouldShowBodyError = errors.body;
+  const shouldShowTitleError = errors.title;
+
   return (
     <ThemedView style={styles.container}>
       <View style={styles.inputContainer}>
@@ -44,12 +46,13 @@ export default function ModalScreen() {
           {...getTextInputProps("title")}
           placeholder="Enter title"
           accessibilityLabel="Todo title"
-          style={[
-            touched.title && errors.title ? { borderColor: ERROR_RED } : null,
-          ]}
+          style={[shouldShowTitleError ? { borderColor: errorColor } : null]}
         />
-        {!!(touched.title && errors.title) && (
-          <ThemedText style={styles.errorText} accessibilityLiveRegion="polite">
+        {shouldShowTitleError && (
+          <ThemedText
+            style={[styles.errorText, { color: errorColor }]}
+            accessibilityLiveRegion="polite"
+          >
             {errors.title}
           </ThemedText>
         )}
@@ -66,25 +69,24 @@ export default function ModalScreen() {
           accessibilityLabel="Todo body"
           style={[
             styles.textArea,
-            touched.body && errors.body ? { borderColor: ERROR_RED } : null,
+            shouldShowBodyError ? { borderColor: errorColor } : null,
           ]}
         />
-        {!!(touched.body && errors.body) && (
-          <ThemedText style={styles.errorText} accessibilityLiveRegion="polite">
+        {shouldShowBodyError && (
+          <ThemedText
+            style={[styles.errorText, { color: errorColor }]}
+            accessibilityLiveRegion="polite"
+          >
             {errors.body}
           </ThemedText>
         )}
       </View>
 
-      <TouchableOpacity
+      <ThemedButton
+        title="Add To‑Do"
         onPress={handleSubmit}
-        style={[styles.button, { backgroundColor: tint }]}
-        activeOpacity={0.85}
-      >
-        <ThemedText type="defaultSemiBold" style={styles.buttonText}>
-          Add To‑Do
-        </ThemedText>
-      </TouchableOpacity>
+        style={styles.button}
+      />
     </ThemedView>
   );
 }
@@ -116,18 +118,8 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 20,
-    width: "100%",
-    paddingVertical: 14,
-    borderRadius: 8,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 16,
   },
   errorText: {
-    color: "#ff4d4f",
     fontSize: 12,
   },
 });
