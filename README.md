@@ -1,50 +1,118 @@
-# Welcome to your Expo app 👋
+<div align="center">
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# React Native Tech Screen — To‑Do App
 
-## Get started
+An Expo Router React Native app (iOS, Android, Web) showcasing a simple, polished to‑do list with detail view, completion state, sorting, and clean theming.
 
-1. Install dependencies
+</div>
 
-   ```bash
-   npm install
-   ```
+## 🚀 Setup & Run
 
-2. Start the app
+Prerequisites
 
-   ```bash
-   npx expo start
-   ```
+- Node.js 18+ and npm
+- Xcode (for iOS simulator) or Android Studio (for Android emulator) if you want to run native simulators
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+Install dependencies
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Start the development server
 
-## Learn more
+```bash
+npm run start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+Then choose a target from the terminal or Expo Dev Tools:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- Press i to open in the iOS simulator
+- Press a to open in the Android emulator
+- Press w to open in the web browser
 
-## Join the community
+You can also run directly:
 
-Join our community of developers creating universal apps.
+```bash
+npm run ios
+npm run android
+npm run web
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🧭 Project Structure
+
+- `app/` — File‑based routing via Expo Router
+
+  - `index.tsx` — Home list screen
+  - `modal.tsx` — Add new to‑do
+  <div align="center">
+
+  # React Native Tech Screen — To‑Do App
+
+  An Expo Router React Native app (iOS, Android, Web) showcasing a simple, polished to‑do list with detail view, completion state, sorting, and clean theming.
+
+  </div>
+
+  ## 🚀 Quick Start
+
+  Clone the repo and install dependencies:
+
+  ```bash
+  git clone https://github.com/MohamedAdelll/React-Native-Tech-Screen.git
+  cd React-Native-Tech-Screen
+  npm install
+  ```
+
+  Start the development server:
+
+  ```bash
+  npm run start
+  ```
+
+  Then choose a target from the terminal or Expo Dev Tools:
+
+  - Press i to open in the iOS simulator
+  - Press a to open in the Android emulator
+  - Press w to open in the web browser
+
+  You can also run directly:
+
+  ```bash
+  npm run ios
+  npm run android
+  npm run web
+  ```
+
+  ## ✨ Features
+
+  - Create to‑dos (title + optional description)
+  - Toggle completion; completed items show a completion timestamp
+  - Detail screen per to‑do with full description and actions
+  - Sorted list: unchecked items first (newest at top), then checked
+  - Delete with confirmation (platform‑appropriate dialogs)
+  - Subtle animation: when a completed item becomes incomplete, it fades and smoothly reorders upward
+
+  ## � Project Structure
+
+  - `app/` — File‑based routing via Expo Router
+    - `index.tsx` — Home list
+    - `modal.tsx` — Add new to‑do
+    - `todo/[id].tsx` — To‑do detail
+  - `components/` — Themed primitives and to‑do UI
+  - `contexts/todo-context.tsx` — In‑memory state and actions
+  - `hooks/use-form.ts` — Lightweight custom form state hook used in the modal
+  - `types/`, `utils/` — Shared types and helpers
+
+  ## 🔎 Notes on Libraries & Forms
+
+  - This project uses the dependencies provided by the Expo Router template; no extra third‑party libraries were added beyond the template defaults.
+  - For the “Add To‑Do” form, a tiny custom hook (`hooks/use-form.ts`) manages form state instead of bringing in a well‑known form library. For a small demo like this, the bespoke hook keeps things lean and easy to follow.
+
+  ## 🔧 Scripts
+
+  - `npm run start` — Start dev server
+  - `npm run ios` — Launch iOS simulator
+  - `npm run android` — Launch Android emulator
+  - `npm run web` — Launch web
+  - `npm run reset-project` — Reset to a clean starter (keeps an example)
+  - `npm run lint` — Run linter

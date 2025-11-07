@@ -81,7 +81,7 @@ export default function TodoDetail() {
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.headerRow}>
-          <Link href=".." style={styles.backLink}>
+          <Link replace href=".." style={styles.backLink}>
             <IconSymbol name="chevron.left" color={tint} />
           </Link>
           <ThemedText type="title">To‑Do</ThemedText>
